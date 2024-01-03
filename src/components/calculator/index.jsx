@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Screen from "../screen";
+import Btn from "../btn";
 
 export default function Calculator() {
     const [screenValue, setScreenValue] = useState('');
@@ -6,7 +8,7 @@ export default function Calculator() {
     const [history, setHistory] = useState(0);
     const [hasOperatorSelected, setHasOperatorSelected] = useState(false);
 
-    // FUNCOES
+
     const addNumberToScreen = (btnValue) => {
         if (['+', '-', '*', '/'].includes(btnValue) && hasOperatorSelected) {
             setHasOperatorSelected(false)
@@ -51,113 +53,61 @@ export default function Calculator() {
 
         } catch (error) {
             console.log(error)
-            setResult('Erro ao realizar calculo');
+            setResult('Error');
         }
     }
 
-    // COMPONENTES
-    const Screen = (value, res) => {
-        return (
-            <>
-                <div style={cssScreen}>
-                    <span style={cssScreenOperation}>{value}</span>
-                    <span style={cssScreenResult}>{res}</span>
-                </div>
-            </>
-        )
-    }
-
-    const Btn = (label, onClick) => {
-        return (
-            <button style={cssBtn} onClick={onClick}>
-                {label}
-            </button>
-        )
-    }
-
-    // ESTILOS
-    const cssContainer = {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        flexDirection: 'column',
-        width: 300,
-        border: '1px solid #000',
-
-    }
-
-    const cssButtons = {
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    }
-
-    const cssScreen = {
-        display: 'flex',
-        paddingLeft: 20,
-        paddingRight: 20,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        backgroundColor: '#444',
-        flexDirection: 'column',
-        width: 260
-    }
-
-    const cssScreenOperation = {
-        fontSize: 25,
-        color: '#fff',
-        height: 20,
-    }
-
-    const cssScreenResult = {
-        fontSize: 50,
-        color: '#fff',
-    }
-
-    const cssBtn = {
-        fontSize: 30,
-        height: 75,
-        width: 75,
-        padding: 20,
-        backgroundColor: '#000',
-        color: '#fff',
-        borderColor: '#000',
-        textAlign: 'center',
-        outline: 'none'
-    }
 
     return (
         <>
             <div style={cssContainer}>
-                <h3>Calculadora</h3>
-                {Screen(screenValue, result)}
+                {<Screen value={screenValue} res={result} />}
                 <div style={cssButtons}>
-                    {Btn('AC', clearScreen)}
-                    {Btn('(', () => addNumberToScreen('('))}
-                    {Btn(')', () => addNumberToScreen(')'))}
-                    {Btn('/', () => addNumberToScreen('/'))}
+                    {<Btn label={'AC'} onClick={clearScreen} />}
+                    {<Btn label={'('} onClick={() => addNumberToScreen('(')} />}
+                    {<Btn label={')'} onClick={() => addNumberToScreen(')')} />}
+                    {<Btn label={'/'} onClick={() => addNumberToScreen('/')} />}
 
-                    {Btn('7', () => addNumberToScreen('7'))}
-                    {Btn('8', () => addNumberToScreen('8'))}
-                    {Btn('9', () => addNumberToScreen('9'))}
-                    {Btn('*', () => addNumberToScreen('*'))}
+                    {<Btn label={'7'} onClick={() => addNumberToScreen('7')} />}
+                    {<Btn label={'8'} onClick={() => addNumberToScreen('8')} />}
+                    {<Btn label={'9'} onClick={() => addNumberToScreen('9')} />}
+                    {<Btn label={'*'} onClick={() => addNumberToScreen('*')} />}
 
-                    {Btn('4', () => addNumberToScreen('4'))}
-                    {Btn('5', () => addNumberToScreen('5'))}
-                    {Btn('6', () => addNumberToScreen('6'))}
-                    {Btn('-', () => addNumberToScreen('-'))}
+                    {<Btn label={'4'} onClick={() => addNumberToScreen('4')} />}
+                    {<Btn label={'5'} onClick={() => addNumberToScreen('5')} />}
+                    {<Btn label={'6'} onClick={() => addNumberToScreen('6')} />}
+                    {<Btn label={'-'} onClick={() => addNumberToScreen('-')} />}
 
-                    {Btn('1', () => addNumberToScreen('1'))}
-                    {Btn('2', () => addNumberToScreen('2'))}
-                    {Btn('3', () => addNumberToScreen('3'))}
-                    {Btn('+', () => addNumberToScreen('+'))}
+                    {<Btn label={'1'} onClick={() => addNumberToScreen('1')} />}
+                    {<Btn label={'2'} onClick={() => addNumberToScreen('2')} />}
+                    {<Btn label={'3'} onClick={() => addNumberToScreen('3')} />}
+                    {<Btn label={'+'} onClick={() => addNumberToScreen('+')} />}
 
-                    {Btn('0', () => addNumberToScreen('0'))}
-                    {Btn('.', () => addNumberToScreen('.'))}
-                    {Btn('<-', () => operation('backspace'))}
-                    {Btn('=', () => operation('='))}
-
+                    {<Btn label={'0'} onClick={() => addNumberToScreen('0')} />}
+                    {<Btn label={'.'} onClick={() => addNumberToScreen('.')} />}
+                    {<Btn label={'<-'} onClick={() => operation('backspace')} />}
+                    {<Btn label={'='} onClick={() => operation('=')} />}
                 </div>
             </div>
         </>
     )
 }
+
+    const cssContainer = {
+        display: 'flex',
+        margin: '0 auto',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'column',
+        width: 330,
+        border: '1px solid #f4f4f4',
+        paddingTop: 20,
+        borderRadius: 10,
+        backgroundColor: '#000'
+    }
+
+    const cssButtons = {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingTop: 20
+    }
